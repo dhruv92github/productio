@@ -7,16 +7,17 @@ export default class Login extends Component {
   render() {
     return (
       <div className="loginpage">
-        <div className="Appbackground"></div>
-        <div className="loginContainer">
+        <div className="left-container"></div>
+        <div className="right-container">
           <div className="formContainer">
+          <Form className="form-style" >
             <h5 className="letterName">
               PRODUCTI<span className="brandLastLetter">O</span>
             </h5>
             <label className="appName">
               Welcome back! Please login to your account.
             </label>
-            <Form className="form-style" >
+            
               <Form.Control
                 className="inputTag"
                 type="text"
@@ -32,7 +33,7 @@ export default class Login extends Component {
                 <Form.Group controlId="formBasicCheckbox">
                   <Form.Check type="checkbox" label="Remember me" />
                 </Form.Group>
-            <Link to="/ForgotPass"><label> Forgot Password</label></Link> 
+            <Link to="/ForgotPass"><label id="forgot-label"> Forgot Password</label></Link> 
               </div>
               <div className="buttonWrapper">
                 <button className="button-left" >Login</button >

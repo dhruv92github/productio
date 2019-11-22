@@ -6,16 +6,17 @@ export default class Login extends Component {
   render() {
     return (
       <div className="forgetPass">
-        <div className="Appbackground"></div>
-        <div className="loginContainer">
+         <div className="left-container"></div>
+         <div className="right-container">
           <div className="formContainer">
+          <Form className="form-style">
             <h5 className="letterName">
               PRODUCTI<span className="brandLastLetter">O</span>
             </h5>
             <label className="appName">
               Enter your email and we send you a password reset link.
             </label>
-            <form className="form-style">
+          
               <Form.Control
                 className="inputTag"
                 type="text"
@@ -24,7 +25,7 @@ export default class Login extends Component {
               <div className="send-button">
                 <button className="button-send">Send Request</button>
               </div>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
