@@ -1,0 +1,124 @@
+.loginpage {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-size: 100% 100%;
+  display: flex;
+  /* justify-content: space-evenly; */
+}
+.forgetPass {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: 100% 100%;
+    display: flex;
+    /* justify-content: space-evenly; */
+  }
+  .signUp {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: 100% 100%;
+    display: flex;
+    /* justify-content: space-evenly; */
+  }
+
+
+.appName {
+  font-size: 12px;
+  color: rgb(175, 173, 173);
+}
+
+.Appbackground {
+  height: 100%;
+  width: 50%;
+  background-color: rgb(66, 66, 89);
+}
+
+.loginContainer {
+  height: 100%;
+  width: 50%;
+  background-color: white;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+.formContainer {
+  min-height: 70%;
+  min-width: 60%;
+
+  /* border:2px solid blue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-style {
+  min-width: 70%;
+  margin-top: 20px;
+}
+
+.loginhelp {
+  width: 100%;
+  margin-top: 15px;
+  font-size: 12px;
+  /* border: 2px solid red ; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0px;
+}
+.send-button {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0px;
+}
+button {
+  padding: 5px;
+  border: 1px solid rgb(66, 66, 89);
+  min-width: 120px;
+}
+.button-left {
+  color: white;
+  border-radius: 3px;
+  background-color: rgb(66, 66, 89);
+ 
+}
+.button-send{
+    color: white;
+    border-radius: 3px;
+    background-color: rgb(66, 66, 89);
+    min-width: 170px;
+}
+.button-right {
+  border-radius: 3px;
+  color: rgb(66, 66, 89);
+  background-color: white;
+}
+.letterName {
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+.brandLastLetter {
+  color: rgb(233, 233, 49);
+}
+
+.inputTag.form-control {
+  font-size: 12px;
+  border-radius: 0rem;
+  border: none;
+  border-bottom: 1px solid black;
+}
+.inputTag.form-control:focus {
+  outline: none;
+  box-shadow: none;
+  border-bottom-color: black;
+}
