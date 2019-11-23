@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Button, Form, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../../css/common.css";
-import firebase from 'firebase';
-
+import firebase from "firebase";
 
 export default class Signup extends Component {
   constructor(props) {
@@ -18,45 +17,64 @@ export default class Signup extends Component {
       passwordOne: "",
       passwordTwo: "",
       role: "Admin",
-      error: null
+      error: null,
+      validated: false
     };
   }
   handleSignup = e => {
     console.log("handleSignup called");
-    e.preventDefault();
-
-    const { firstName, lastName, email, company, username, passwordOne, role } = this.state;
-    firebase
-      .database()
-      .ref(`users/${username}`)
-      .limitToFirst(1)
-      .once('value')
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          console.log("user already exist");
-          return false;
-        }
-        firebase.auth().createUserWithEmailAndPassword(email, passwordOne)
-          .then((u) => {
-            firebase
-              .database()
-              .ref(`users/${username}`)
-              .set({ firstName, lastName, email, company, role })
-              .then(() => {
-                alert("User registered successfully");
-                console.log("success 1");
-              })
-              .then(() => {
-                console.log("success 2");
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-
-          }).catch((error) => {
-            console.log(error);
-          });
-      });
+    const form = e.currentTarget;
+    console.log(form.checkValidity());
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log("inner called");
+      const {
+        firstName,
+        lastName,
+        email,
+        company,
+        username,
+        passwordOne,
+        role
+      } = this.state;
+      firebase
+        .database()
+        .ref(`users/${username}`)
+        .limitToFirst(1)
+        .once("value")
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            console.log("user already exist");
+            return false;
+          }
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, passwordOne)
+            .then(u => {
+              firebase
+                .database()
+                .ref(`users/${username}`)
+                .set({ firstName, lastName, email, company, role })
+                .then(() => {
+                  alert("User registered successfully");
+                  console.log("success 1");
+                })
+                .then(() => {
+                  console.log("success 2");
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        });
+    }
+    this.setState({
+      validated: true
+    });
   };
   handleChange = e => {
     const { name, value } = e.target;
@@ -75,7 +93,8 @@ export default class Signup extends Component {
       email,
       passwordOne,
       passwordTwo,
-      error
+      error,
+      validated
     } = this.state;
     const isInvalid =
       passwordOne !== passwordTwo ||
@@ -88,14 +107,19 @@ export default class Signup extends Component {
         <div className="left-container"></div>
         <div className="right-container">
           <div className="formContainer">
-            <Form className="form-style">
+            <Form
+              noValidate
+              className="form-style"
+              validated={validated}
+              onSubmit={this.handleSignup}
+            >
               <h5 className="letterName">
                 PRODUCTI<span className="brandLastLetter">O</span>
               </h5>
               <label className="appName">
                 Please complete to create your account.
               </label>
-
+              <br />
               <Form.Row>
                 <Col>
                   <Form.Control
@@ -104,7 +128,11 @@ export default class Signup extends Component {
                     value={firstName}
                     name="firstName"
                     onChange={this.handleChange}
+                    required
                   />
+                  <Form.Control.Feedback type="invalid">
+                    First name is required
+                  </Form.Control.Feedback>
                 </Col>
                 <Col>
                   <Form.Control
@@ -113,22 +141,31 @@ export default class Signup extends Component {
                     value={lastName}
                     name="lastName"
                     onChange={this.handleChange}
+                    required
                   />
+                  <Form.Control.Feedback type="invalid">
+                    Last name is required
+                  </Form.Control.Feedback>
                 </Col>
               </Form.Row>
               <br />
               <Form.Row>
-                <Col xs={12}>
+                <Col xs={6}>
                   <Form.Control
                     className="inputTag"
                     placeholder="Company Name"
                     name="company"
                     value={company}
                     onChange={this.handleChange}
+                    required
                   />
+                  <Form.Control.Feedback type="invalid">
+                    Company is required
+                  </Form.Control.Feedback>
                 </Col>
               </Form.Row>
               <br />
+              <Form.Group>
               <Form.Control
                 className="inputTag"
                 type="text"
@@ -136,53 +173,74 @@ export default class Signup extends Component {
                 name="username"
                 value={username}
                 onChange={this.handleChange}
+                required
               />
+         <Form.Control.Feedback type="invalid">
+                 User name is required
+                </Form.Control.Feedback>
+        </Form.Group>
               <br />
+              <Form.Group>
+                <Form.Control
+                  className="inputTag"
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please enter a valid Email Id
+                </Form.Control.Feedback>
+              </Form.Group>
+              <br />
+              <Form.Group>
               <Form.Control
                 className="inputTag"
-                type="text"
-                placeholder="Email"
-                name="email"
-                value={email}
-                onChange={this.handleChange}
-              />
-              <br />
-              <Form.Control
-                className="inputTag"
-                type="text"
+                type="password"
                 placeholder="Password"
                 name="passwordOne"
                 value={passwordOne}
                 onChange={this.handleChange}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please choose password
+              </Form.Control.Feedback>
+              </Form.Group>
               <br />
+              <Form.Group>
               <Form.Control
                 className="inputTag"
-                type="text"
+                type="password"
                 placeholder="Confirm Password"
                 name="passwordTwo"
                 value={passwordTwo}
                 onChange={this.handleChange}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                Please re-enter password
+              </Form.Control.Feedback>
+              </Form.Group>
               <div className="loginhelp">
                 <Form.Group controlId="formBasicCheckbox">
                   <Form.Check
+                    required
                     type="checkbox"
                     label="I agree with terms and conditions"
+                    feedback="You must agree before submitting."
                   />
                 </Form.Group>
               </div>
               <div className="send-button">
-                <Button
-                  className="button-send"
-                  disabled={isInvalid}
-                  onClick={this.handleSignup}
-                >
+                <button type="submit" className="button-send">
                   Sign up
-                </Button>
+                </button>
               </div>
               {error && <p>{error.message}</p>}
-              <div>
+              <div className="signin-label">
                 <Link to="/">
                   <span>Already have an account Sign In</span>
                 </Link>

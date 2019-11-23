@@ -12,12 +12,16 @@ export default class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      error: ""
+      error: "",
+      validated:false
     }
   }
 
   handleSignIn = e => {
     console.log("handleSigin called");
+    const form = e.currentTarget;
+    console.log(form.checkValidity());
+    if (form.checkValidity() === false) {
     e.preventDefault();
     const { username, password } = this.state;
     console.log(username + "..." + password)
@@ -38,7 +42,10 @@ export default class Login extends Component {
     //   console.log('no users with that name');
     // }
     // });
-
+  }
+  this.setState({
+    validated: true
+  });
   }
 
   handleChange = e => {
@@ -53,21 +60,29 @@ export default class Login extends Component {
     const {
       username,
       password,
-      error
+      error,
+      validated
     } = this.state;
     return (
       <div className="loginpage">
         <div className="left-container"></div>
         <div className="right-container">
           <div className="formContainer">
-            <Form className="form-style" >
+          <Form
+              noValidate
+              className="form-style"
+              validated={validated}
+              onSubmit={this.handleSignIn}
+             
+            >
               <h5 className="letterName">
                 PRODUCTI<span className="brandLastLetter">O</span>
               </h5>
               <label className="appName">
                 Welcome back! Please login to your account.
             </label>
-
+            <br/>
+            <Form.Group>
               <Form.Control
                 className="inputTag"
                 type="text"
@@ -75,16 +90,27 @@ export default class Login extends Component {
                 name="username"
                 value={username}
                 onChange={this.handleChange}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                    User name is required
+                  </Form.Control.Feedback>
+              </Form.Group>
               <br />
+              <Form.Group>
               <Form.Control
                 className="inputTag"
-                type="text"
+                type="password"
                 placeholder="Password"
                 name="password"
                 value={password}
                 onChange={this.handleChange}
+                required
               />
+              <Form.Control.Feedback type="invalid">
+                   password is required
+                  </Form.Control.Feedback>
+              </Form.Group>
               <div className="loginhelp">
                 <Form.Group controlId="formBasicCheckbox">
                   <Form.Check type="checkbox" label="Remember me" />
@@ -92,7 +118,7 @@ export default class Login extends Component {
                 <Link to="/ForgotPass"><label id="forgot-label"> Forgot Password</label></Link>
               </div>
               <div className="buttonWrapper">
-                <button className="button-left" onClick={this.handleSignIn}>Login</button >
+                <button className="button-left" type="submit">Login</button >
                 <Link to="/Signup"><button className="button-right"> Sign up</button ></Link>
               </div>
             </Form>
