@@ -4,8 +4,14 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from './components/Signup';
 import ForgotPass from "./components/ForgotPass";
+import firebaseConfig from './Firebase/firebaseConfig';
 
 class App extends Component {
+
+    componentWillMount() {
+      firebaseConfig();
+    }
+
   render() {
     return (
       <Router>

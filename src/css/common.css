@@ -8,6 +8,7 @@
 }
 #forgot-label {
   cursor: pointer;
+  color: #000;
 }
 .forgetPass {
   width: 100%;
@@ -61,7 +62,6 @@
   /* bottom: 50%;
   right: 50%; */
   transform: translate(-50%, -50%);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,6 +84,7 @@
 }
 
 .buttonWrapper {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -111,16 +112,16 @@ button:disabled {
   border-radius: 3px;
   background-color: rgb(66, 66, 89);
 }
+.button-right {
+  border-radius: 3px;
+  color: rgb(66, 66, 89);
+  background-color: white;
+}
 .button-send {
   color: white;
   border-radius: 3px;
   background-color: rgb(66, 66, 89);
   min-width: 170px;
-}
-.button-right {
-  border-radius: 3px;
-  color: rgb(66, 66, 89);
-  background-color: white;
 }
 .letterName {
   font-weight: bold;
